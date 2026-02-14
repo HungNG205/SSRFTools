@@ -29,7 +29,9 @@ def scanNet(request_info, params, network, port, url):
     except requests.exceptions.RequestException:
         print(f"Network {network} is closed.")
 
-def run(request_info, params, network_target, port, url):
+def run(request_info, params,  url):
+    network_target = input("Network to scan (e.g., 192.168.1): ").strip()
+    port = int(input("Port (default 8080): ").strip() or "8080")
     networks = [i for i in range(0, 256)]
     threads = []
     for network in networks:

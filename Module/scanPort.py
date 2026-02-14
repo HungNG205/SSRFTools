@@ -46,8 +46,9 @@ def parse_ports(value):
     
     return [int(value)]
 
-def run(request_info, params, ports, url):
+def run(request_info, params, url):
     threads = []
+    ports = parse_ports(input("Ports (ex: 80 / 80,443 / 1-1024): ").strip())
     for port in ports:
         t = Thread(target=scanPort, args=(request_info, params, port, url))
         threads.append(t)
