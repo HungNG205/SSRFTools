@@ -25,13 +25,17 @@ def scanNet(request_info, params, network, port, url):
         if response.status_code == 200:
             print(f"Network {network} is open.")
         else:
-            print(f"Network {network} is closed/filtered.")
+            body_res = response.text
+            if "ECONNREFUSED" in body_res:
+                print(f"Network {network} is open but port {port} is closed.")
+            else:
+                print(f"Network {network} is closed/filtered.")
     except requests.exceptions.RequestException:
         print(f"Network {network} is closed.")
 
 def run(request_info, params,  url):
     network_target = input("Network to scan (e.g., 192.168.1): ").strip()
-    port = int(input("Port (default 8080): ").strip() or "8080")
+    port = int(input("Port (default 80): ").strip() or "80")
     networks = [i for i in range(0, 256)]
     threads = []
     for network in networks:

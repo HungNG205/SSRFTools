@@ -29,6 +29,7 @@ def scanPort(request_info, params, port, url):
         if response.status_code == 200:
             print(f"Port {port} is open.")
         else:
+            print(response.text)
             print(f"Port {port} is closed/filtered.")
     except requests.exceptions.RequestException:
         print(f"Port {port} is closed.")
