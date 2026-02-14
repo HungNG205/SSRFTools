@@ -1,14 +1,14 @@
 import requests
 from threading import Thread
 
-def scanPort(request_info, params, port, url):
+def scanPort(request_info, params, network, port, url):
     try:
         method, _ , header, body, is_json = request_info
 
         if method == "POST" or method == "PUT":
             body_data = body.copy()
             if params in body_data:
-                body_data[params] = f"http://{header['Host'].split(':')[0].strip()}:{port}"
+                body_data[params] = f"http://{network}:{port}"
 
             if is_json:
                 response = requests.request(method, url, headers=header, json=body_data, timeout=3)
@@ -21,7 +21,7 @@ def scanPort(request_info, params, port, url):
                 method,
                 url,
                 headers=header,
-                params={params: f"http://{header['Host'].split(':')[0].strip()}:{port}"},
+                params={params: f"http://{network}:{port}"},
                 timeout=3,
             )
         
@@ -31,8 +31,8 @@ def scanPort(request_info, params, port, url):
         else:
             print(response.text)
             print(f"Port {port} is closed/filtered.")
-    except requests.exceptions.RequestException:
-        print(f"Port {port} is closed.")
+    except requests.exceptions.RequestException as exc:
+        print(f"Port {port} is closed. Error: {exc}")
 
 def parse_ports(value):
     if not value.strip():
@@ -48,11 +48,12 @@ def parse_ports(value):
     return [int(value)]
 
 def run(request_info, params, url):
+    network_target = input("Network to scan: ").strip()
     ports = parse_ports(input("Ports (ex: 80 / 80,443 / 1-1024): ").strip())
     threads = []
-    max_threads = 50
+    max_threads = 40
     for port in ports:
-        t = Thread(target=scanPort, args=(request_info, params, port, url))
+        t = Thread(target=scanPort, args=(request_info, params, network_target, port, url))
         threads.append(t)
         t.start()
         if len(threads) >= max_threads:

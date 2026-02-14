@@ -27,18 +27,18 @@ def scanNet(request_info, params, network, port, url):
         else:
             body_res = response.text
             if "ECONNREFUSED" in body_res:
-                print(f"Network {network} is open but port {port} is closed.")
+                print(f"Network {network} is open but connection refused.")
             else:
                 print(f"Network {network} is closed/filtered.")
-    except requests.exceptions.RequestException:
-        print(f"Network {network} is closed.")
+    except requests.exceptions.RequestException as exc:
+        print(f"Network {network} error: {exc}")
 
 def run(request_info, params,  url):
     network_target = input("Network to scan (e.g., 192.168.1): ").strip()
     port = int(input("Port (default 80): ").strip() or "80")
     networks = [i for i in range(0, 255)]
     threads = []
-    max_threads = 50
+    max_threads = 40
     for network in networks:
         network_sc = f"{network_target}.{network}"
         t = Thread(target=scanNet, args=(request_info, params, network_sc, port, url))

@@ -22,14 +22,14 @@ def scanPort(request_info, params, api, url):
             print(f"API {api} is access.")
         else:
             print(f"API {api} is closed/filtered.")
-    except requests.exceptions.RequestException:
-        print(f"API {api} is closed.")
+    except requests.exceptions.RequestException as exc:
+        print(f"API {api} is closed. Error: {exc}")
 
 def run(request_info, params, url):
     with open("Dict/api_dict.txt", "r") as f:
         api_list = [line.strip() for line in f if line.strip()]
     threads = []
-    max_threads = 50
+    max_threads = 40
     for api in api_list:
         t = Thread(target=scanPort, args=(request_info, params, api, url))
         threads.append(t)

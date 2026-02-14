@@ -1,4 +1,4 @@
-from Module import scanAPI, scanNet, scanPort
+from Module import exploitMetaData, scanAPI, scanNet, scanPort
 from request_parse import parse_request
 
 def main():
