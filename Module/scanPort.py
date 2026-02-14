@@ -48,11 +48,16 @@ def parse_ports(value):
     return [int(value)]
 
 def run(request_info, params, url):
-    threads = []
     ports = parse_ports(input("Ports (ex: 80 / 80,443 / 1-1024): ").strip())
+    threads = []
+    max_threads = 50
     for port in ports:
         t = Thread(target=scanPort, args=(request_info, params, port, url))
         threads.append(t)
         t.start()
-    for t in threads:
-        t.join()
+        if len(threads) >= max_threads:
+            for jt in threads:
+                jt.join()
+            threads = []
+    for jt in threads:
+        jt.join()
