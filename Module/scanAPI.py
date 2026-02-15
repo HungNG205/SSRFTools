@@ -1,5 +1,5 @@
 import requests
-from Module.threading_utils import threads
+from Module.runThread import threads
 
 def scanPort(request_info, params, api, url):
     try:

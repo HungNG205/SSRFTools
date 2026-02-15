@@ -1,15 +1,15 @@
 import ipaddress
 import requests
 
-from Module.threading_utils import threads
+from Module.runThread import threads
 
-def scanNet(request_info, params, network, port, url):
+def scanNet(request_info, params, network, url):
     try:
         method, _ , header, body, is_json = request_info
         if method == "POST" or method == "PUT":
             body_data = body.copy()
             if params in body_data:
-                body_data[params] = f"http://{network}:{port}/admin"
+                body_data[params] = f"http://{network}"
             if is_json:
                 response = requests.request(method, url, headers=header, json=body_data, timeout=3)
             else:
@@ -20,7 +20,7 @@ def scanNet(request_info, params, network, port, url):
                 method,
                 url,
                 headers=header,
-                params={params: f"http://{network}:{port}/admin"},
+                params={params: f"http://{network}"},
                 timeout=3,
             )
         print(f"[{network}] Status: {response.status_code}")
@@ -37,10 +37,9 @@ def scanNet(request_info, params, network, port, url):
 
 def run(request_info, params,  url):
     target_subnet = input("Target IP/CIDR (e.g., 192.168.0.1/20): ").strip()
-    port = int(input("Port (default 80): ").strip() or "80")
     network = ipaddress.ip_network(target_subnet, strict=False)
     networks = list(network.hosts())
     def worker(network):
         network_sc = str(network)
-        scanNet(request_info, params, network_sc, port, url)
+        scanNet(request_info, params, network_sc, url)
     threads(networks, worker)
