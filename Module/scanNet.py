@@ -31,6 +31,7 @@ def scanNet(request_info, params, network, url):
             if "ECONNREFUSED" in body_res:
                 print(f"Network {network} is open but connection refused.")
             else:
+                print(body_res[:100])  # Print first 100 characters of response body
                 print(f"Network {network} is closed/filtered.")
     except requests.exceptions.RequestException as exc:
         print(f"Network {network} error: {exc}")
