@@ -1,5 +1,7 @@
+import ipaddress
 import requests
-from threading import Thread
+
+from Module.threading_utils import threads
 
 def scanNet(request_info, params, network, port, url):
     try:
@@ -34,19 +36,11 @@ def scanNet(request_info, params, network, port, url):
         print(f"Network {network} error: {exc}")
 
 def run(request_info, params,  url):
-    network_target = input("Network to scan (e.g., 192.168.1): ").strip()
+    target_subnet = input("Target IP/CIDR (e.g., 192.168.0.1/20): ").strip()
     port = int(input("Port (default 80): ").strip() or "80")
-    networks = [i for i in range(0, 255)]
-    threads = []
-    max_threads = 40
-    for network in networks:
-        network_sc = f"{network_target}.{network}"
-        t = Thread(target=scanNet, args=(request_info, params, network_sc, port, url))
-        threads.append(t)
-        t.start()
-        if len(threads) >= max_threads:
-            for jt in threads:
-                jt.join()
-            threads = []
-    for jt in threads:
-        jt.join()
+    network = ipaddress.ip_network(target_subnet, strict=False)
+    networks = list(network.hosts())
+    def worker(network):
+        network_sc = str(network)
+        scanNet(request_info, params, network_sc, port, url)
+    threads(networks, worker)

@@ -1,5 +1,6 @@
 import requests
-from threading import Thread
+
+from Module.threading_utils import threads
 
 def scanPort(request_info, params, network, port, url):
     try:
@@ -50,15 +51,6 @@ def parse_ports(value):
 def run(request_info, params, url):
     network_target = input("Network to scan: ").strip()
     ports = parse_ports(input("Ports (ex: 80 / 80,443 / 1-1024): ").strip())
-    threads = []
-    max_threads = 40
-    for port in ports:
-        t = Thread(target=scanPort, args=(request_info, params, network_target, port, url))
-        threads.append(t)
-        t.start()
-        if len(threads) >= max_threads:
-            for jt in threads:
-                jt.join()
-            threads = []
-    for jt in threads:
-        jt.join()
+    def worker(port):
+        scanPort(request_info, params, network_target, port, url)
+    threads(ports, worker)

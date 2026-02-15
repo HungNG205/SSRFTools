@@ -1,5 +1,5 @@
 import requests
-from threading import Thread
+from Module.threading_utils import threads
 
 def scanPort(request_info, params, api, url):
     try:
@@ -28,15 +28,6 @@ def scanPort(request_info, params, api, url):
 def run(request_info, params, url):
     with open("Dict/api_dict.txt", "r") as f:
         api_list = [line.strip() for line in f if line.strip()]
-    threads = []
-    max_threads = 40
-    for api in api_list:
-        t = Thread(target=scanPort, args=(request_info, params, api, url))
-        threads.append(t)
-        t.start()
-        if len(threads) >= max_threads:
-            for jt in threads:
-                jt.join()
-            threads = []
-    for jt in threads:
-        jt.join()
+    def worker(api):
+        scanPort(request_info, params, api, url)
+    threads(api_list, worker)
