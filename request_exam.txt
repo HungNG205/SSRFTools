@@ -18,4 +18,8 @@ Referer: https://ssrflab.dpdns.org/settings
 Accept-Encoding: gzip, deflate, br
 Priority: u=1, i
 
+<<<<<<< HEAD
 {"profilePicture":"https://anhavatardep.com/wp-content/uploads/2025/05/avatar-cute-13.jpg"}
+=======
+{"profilePicture":"https://statictuoitre.mediacdn.vn/thumb_w/640/2017/7-1512755474943.jpg"}
+>>>>>>> 3c7d22bfb8026b3b49a150a14419db5d0046f2de
