@@ -1,6 +1,4 @@
 import requests
-from threading import Thread
-import ipaddress
 
 import request_parse
 def scanNet(request_info, network, url):
@@ -12,7 +10,7 @@ def scanNet(request_info, network, url):
         else:
             body_data['coverImage'] = f"http://{network}"
         rsp = requests.request(method, f"{url}{path}", headers=header, json=body_data, timeout=30)
-        print(f"[{network}] Status: {rsp.status_code}")
+        # print(f"[{network}] Status: {rsp.status_code}")
         if rsp.status_code == 200 or ("ECONNREFUSED" in rsp.text):
             print(f"Network {network} is open.")
         elif "EHOSTUNREACH" in rsp.text or "ETIMEDOUT" in rsp.text:

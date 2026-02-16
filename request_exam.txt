@@ -1,11 +1,11 @@
 PUT /api-v1/api/user/update/avatar HTTP/2
 Host: ssrflab.dpdns.org
-Cookie: __Host-authjs.csrf-token=b57260691946e019da3bedcebc7fdd7c6368a6cf2f2d5e96ce44927cd722ee7b%7Cc42c5157e6e3fc80b1fd529066203e1ddf9caeccfeeacb2b9a56c3779c668e4e; __Secure-authjs.callback-url=https%3A%2F%2Fssrflab.dpdns.org
+Cookie: __Host-authjs.csrf-token=12a451831f808a1222af173d427f0f2c34a411930d6577c53b16637f8b9856b1%7C32bcbc609d3bfee85b5990c9b01ca9232df92b284aa96bfa2316805a8b8b8847; __Secure-authjs.callback-url=https%3A%2F%2Fssrflab.dpdns.org%2F
 Content-Length: 91
 Sec-Ch-Ua-Platform: "Windows"
 Accept-Language: en-US,en;q=0.9
 Sec-Ch-Ua: "Chromium";v="143", "Not A(Brand";v="24"
-Auth-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OTFkMTE2OTkzZTA3YWEwZWRkYTFkOCIsImlhdCI6MTc3MTE2NDIzMiwiZXhwIjoxNzczNzU2MjMyfQ.zhUSaiMBAGxjw-LDLNBdjKMpv_DVuR4wn3TRNn1pHPw
+Auth-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OTI5Mjk4NTQxMjA3NDg3MGQ1OWIzZSIsImlhdCI6MTc3MTIxMzYyOCwiZXhwIjoxNzczODA1NjI4fQ.gMc_uIlfmIPxFWedXL3XKLGI75TRCxe3J4FFm2Ts-do
 Sec-Ch-Ua-Mobile: ?0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
 Accept: application/json, text/plain, */*
@@ -18,8 +18,4 @@ Referer: https://ssrflab.dpdns.org/settings
 Accept-Encoding: gzip, deflate, br
 Priority: u=1, i
 
-<<<<<<< HEAD
 {"profilePicture":"https://anhavatardep.com/wp-content/uploads/2025/05/avatar-cute-13.jpg"}
-=======
-{"profilePicture":"https://statictuoitre.mediacdn.vn/thumb_w/640/2017/7-1512755474943.jpg"}
->>>>>>> 3c7d22bfb8026b3b49a150a14419db5d0046f2de
