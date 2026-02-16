@@ -10,20 +10,9 @@ def parse_request(file_path):
             if line == "\n":
                 break
             key, value = line.strip().split(": ", 1)
-            if key == "Content-Length":
+            if key == "Content-Length" or key == "Accept-Encoding":
                 continue
             headers[key] = value
         body = file.read().strip()
-        
-    is_json = False
-    body_dict = {}
-    if body:
-        try:
-            body_dict = json.loads(body)
-            is_json = True
-        except json.JSONDecodeError:
-            for item in body.split("&"):
-                if "=" in item:
-                    key, value = item.split("=", 1)
-                    body_dict[key] = value
-    return method, api_path, headers, body_dict, is_json
+    body = json.loads(body)
+    return method, api_path, headers, body
