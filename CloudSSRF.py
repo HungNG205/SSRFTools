@@ -1,7 +1,23 @@
 import argparse
 from request_parse import parse_request
 
+def print_banner():
+    banner = r"""
+    [96m        __   _
+         __(  )_( )_
+        (_   _    _)_
+       / /(_) (__)   [0m
+    [91m ____  ____  ____  _____ 
+    / ___|/ ___||  _ \|  ___|
+    \___ \\___ \| |_) | |_   
+     ___) |___) |  _ <|  _|  
+    |____/|____/|_| \_\_|    [0m
+    [93m[ Cloud SSRF v1.0 ][0m
+    """
+    print(banner)
+
 def main():
+    print_banner()
     parser = argparse.ArgumentParser(description="Cloud SSRF",
                                      epilog="Example usage: python CloudSSRF.py -f request_exam.txt -p url -s http -o scanNet")
     parser.add_argument("-f", "--file", required=True, help="Header request file path")
