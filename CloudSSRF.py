@@ -44,7 +44,6 @@ def main():
             return
 
         url = f"{scheme}://{host.strip()}{api_path.split('?')[0]}"
-
         module_name = f"Module.{args.module}"
         module = __import__(module_name, fromlist=["run"])
         module.run((method, api_path, headers, body, is_json, verify), args.params, url)
