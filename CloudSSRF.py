@@ -1,5 +1,5 @@
 import argparse
-from Utils.request_parse import parse_request
+from Utils.parseRequest import parse_request
 
 
 def print_banner():

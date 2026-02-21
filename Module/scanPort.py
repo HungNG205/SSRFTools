@@ -1,33 +1,24 @@
 import httpx
 from Utils.runThread import threads
+from Utils.makeRequest import make_request
 
 
 def scanPort(request_info, params, network, port, url):
     try:
         method, _, header, body, is_json, verify = request_info
+        payload = f"http://{network}:{port}"
 
         with httpx.Client(http2=True, verify=verify, timeout=3) as client:
-            if method == "POST" or method == "PUT":
-                body_data = body.copy()
-                if params in body_data:
-                    body_data[params] = f"http://{network}:{port}"
-
-                if is_json:
-                    response = client.request(method, url, headers=header, json=body_data)
-                else:
-                    body_str = "&".join([f"{k}={v}" for k, v in body_data.items()])
-                    response = client.request(method, url, headers=header, data=body_str)
-            elif method == "GET":
-                response = client.request(method, url, headers=header, params={params: f"http://{network}:{port}"})
-            print("-" * 50)
+            response = make_request(client, method, url, header, body, params, payload, is_json)
+            
+            print("-"*50)
             print(f"[Port {port}] Status: {response.status_code}")
-
             if response.status_code == 200:
                 print(f"Port {port} is open.")
             else:
                 print(response.text)
                 print(f"Port {port} is closed/filtered.")
-            print("-" * 50)
+            print("-"*50)
     except httpx.RequestError as exc:
         print(f"Port {port} is closed by (timeout).")
 
