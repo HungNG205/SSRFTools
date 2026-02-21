@@ -26,7 +26,7 @@ def scanPort(request_info, params, network, port, url):
             print(response.text)
             print(f"Port {port} is closed/filtered.")
     except requests.exceptions.RequestException as exc:
-        print(f"Port {port} is closed. Error: {exc}")
+        print(f"Port {port} is closed by (timeout).")
 
 
 def parse_ports(value):

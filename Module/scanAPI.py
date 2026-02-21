@@ -28,7 +28,7 @@ def scanAPI(request_info, params, api, url):
         else:
             print(f"API {api} is closed/filtered.")
     except requests.exceptions.RequestException as exc:
-        print(f"API {api} is closed. Error: {exc}")
+        print(f"API {api} is not accessible/exist by (timeout).")
 
 
 def run(request_info, params, url):

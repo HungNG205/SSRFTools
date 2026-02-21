@@ -31,7 +31,7 @@ def scanNet(request_info, params, ip, url):
                 print(body_res[:100])
                 print(f"Network {ip} is closed/filtered.")
     except requests.exceptions.RequestException as exc:
-        print(f"Network {ip} error: {exc}")
+        print(f"Network {ip} does not exist by (timeout).")
 
 
 def run(request_info, params, url):
