@@ -32,7 +32,7 @@ def scanAPI(request_info, params, api, url):
 
 
 def run(request_info, params, url):
-    with open("Dict/API_dict.txt", "r") as f:
+    with open("PayloadSSRF/ApiTesting.txt", "r") as f:
         api_list = [line.strip() for line in f if line.strip()]
 
     def worker(api):
