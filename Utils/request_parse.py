@@ -1,19 +1,19 @@
 import json
 
-def parse_request(file_path):
+def parse_request(request_file):
     headers = {}
-    with open(file_path, "r", encoding="utf-8") as file:
-        line0 = next(file, "").strip().split(" ")
-        method = line0[0].upper()
-        api_path = line0[1]
-        for line in file:
-            if line == "\n":
+    with open(request_file, "r", encoding="utf-8") as f:
+        reqLine = next(f, "").strip().split(" ")
+        method = reqLine[0].upper()
+        api_path = reqLine[1]
+        for line in f:
+            if not line.strip():
                 break
             key, value = line.strip().split(": ", 1)
             if key == "Content-Length" or key == "Accept-Encoding":
                 continue
             headers[key] = value
-        body = file.read().strip()
+        body = f.read().strip()
         
     is_json = False
     body_dict = {}

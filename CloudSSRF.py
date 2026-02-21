@@ -1,6 +1,7 @@
 import argparse
 from Utils.request_parse import parse_request
 
+
 def print_banner():
     banner = r"""
     [96m        __   _
@@ -16,31 +17,60 @@ def print_banner():
     """
     print(banner)
 
+
 def main():
     print_banner()
-    parser = argparse.ArgumentParser(description="Cloud SSRF",
-                                     epilog="Example usage: python CloudSSRF.py -f request_exam.txt -p url -s http -o scanNet")
-    parser.add_argument("-f", "--file", required=True, help="Header request file path")
-    parser.add_argument("-p", "--params", required=True, help="Parameter to test SSRF")
-    parser.add_argument("-s", "--scheme", required=True, help="Protocol scheme (http or https)")
-    parser.add_argument("-o", "--option", required=True, choices=["scanNet", "scanPort", "scanAPI", "exploitMetadata"], help="option of scan/exploit")
-    args = parser.parse_args()
-    file_path = args.file
-    params = args.params
-    scheme = args.scheme.lower()
-    verify = True
-    method, api_path, header, body, is_json = parse_request(file_path)
-    if scheme == "https":
-        verify = False
-    url = f"{scheme}://{header['Host'].strip()}{api_path.split('?')[0]}"
     try:
+        parser = argparse.ArgumentParser(
+            description="Cloud SSRF",
+            epilog="Example usage: python CloudSSRF.py -f request_exam.txt -p url -s http -o scanNet",
+        )
+        parser.add_argument("-f", "--file", required=True, help="Request file path")
+        parser.add_argument(
+            "-p", "--params", required=True, help="Parameter to test SSRF"
+        )
+        parser.add_argument(
+            "-s", "--scheme", required=True, help="Protocol scheme (http or https)"
+        )
+        parser.add_argument(
+            "-o",
+            "--option",
+            required=True,
+            choices=["scanNet", "scanPort", "scanAPI", "exploitMetadata"],
+            help="option of scan/exploit",
+        )
+        args = parser.parse_args()
+        file_path = args.file
+        params = args.params
+        scheme = args.scheme.lower()
+        verify = True
+        method, api_path, headers, body, is_json = parse_request(file_path)
+        if scheme == "https":
+            verify = False
+
+        host = headers.get("Host")
+        if not host:
+            print("Error: Missing required Host header in request file.")
+            return
+
+        url = f"{scheme}://{host.strip()}{api_path.split('?')[0]}"
+
         module_name = f"Module.{args.option}"
-        mod = __import__(module_name, fromlist=['run'])
-        mod.run((method, api_path, header, body, is_json, verify), args.params, url)
+        module = __import__(module_name, fromlist=["run"])
+        module.run((method, api_path, headers, body, is_json, verify), args.params, url)
+    except SystemExit:
+        print("Error: Invalid command-line arguments. Use -h for help.")
+    except FileNotFoundError as e:
+        print(f"Error: Request file not found: {e}")
+    except ValueError as e:
+        print(f"Error: Invalid request file format: {e}")
     except ImportError as e:
-        print(f"Error loading module {args.option}: {e}")
+        print(f"Error: Failed to load module: {e}")
+    except KeyboardInterrupt:
+        print("\nOperation cancelled by user.")
     except Exception as e:
-        print(f"Runtime error: {e}")
-    
+        print(f"Unexpected error: {e}")
+
+
 if __name__ == "__main__":
     main()
