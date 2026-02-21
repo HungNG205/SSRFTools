@@ -1,5 +1,6 @@
 import argparse
 from Utils.parseRequest import parse_request
+import importlib
 
 
 def print_banner():
@@ -45,7 +46,7 @@ def main():
 
         url = f"{scheme}://{host.strip()}{api_path.split('?')[0]}"
         module_name = f"Module.{args.module}"
-        module = __import__(module_name, fromlist=["run"])
+        module = importlib.import_module(module_name)
         module.run((method, api_path, headers, body, is_json, verify), args.params, url)
     except SystemExit:
         print("Error: Invalid command-line arguments. Use -h for help.")

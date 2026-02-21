@@ -1,5 +1,5 @@
 import httpx
-from Utils.runThread import threads
+from Utils.runThread import run_threads
 from Utils.makeRequest import make_request
 
 

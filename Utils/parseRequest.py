@@ -1,4 +1,5 @@
 import json
+from urllib.parse import parse_qsl
 
 def parse_request(request_file):
     headers = {}
@@ -22,8 +23,6 @@ def parse_request(request_file):
             body_dict = json.loads(body)
             is_json = True
         except json.JSONDecodeError:
-            for item in body.split("&"):
-                if "=" in item:
-                    key, value = item.split("=", 1)
-                    body_dict[key] = value
+            body_dict = dict(parse_qsl(body, keep_blank_values=True))
     return method, api_path, headers, body_dict, is_json
+    
