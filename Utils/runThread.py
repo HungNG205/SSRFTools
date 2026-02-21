@@ -7,5 +7,5 @@ def threads(items, worker, max_threads=40):
         for future in as_completed(futures):
             try:
                 future.result()
-            except Exception:
-                pass
+            except Exception as e:
+                print(f"Thread error: {e}")

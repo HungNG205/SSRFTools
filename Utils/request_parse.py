@@ -10,7 +10,7 @@ def parse_request(request_file):
             if not line.strip():
                 break
             key, value = line.strip().split(": ", 1)
-            if key == "Content-Length" or key == "Accept-Encoding":
+            if key.lower() in ["content-length", "accept-encoding"]:
                 continue
             headers[key] = value
         body = f.read().strip()

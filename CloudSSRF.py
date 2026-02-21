@@ -28,11 +28,10 @@ def main():
         parser.add_argument("-f", "--file", required=True, help="Request file path")
         parser.add_argument("-p", "--params", required=True, help="Parameter to test SSRF")
         parser.add_argument("-s", "--scheme", required=True, help="Protocol scheme (http or https)")     
-        parser.add_argument("-o", "--option", required=True, choices=["scanNet", "scanPort", "scanAPI", "exploitMetadata"], help="option of scan/exploit")
-
+        parser.add_argument("-m", "--module", required=True, choices=["scanNet", "scanPort", "scanAPI", "exploitMetadata"], help="option of scan/exploit")
+       
         args = parser.parse_args()
         file_path = args.file
-        params = args.params
         scheme = args.scheme.lower()
         verify = True
         method, api_path, headers, body, is_json = parse_request(file_path)
@@ -46,7 +45,7 @@ def main():
 
         url = f"{scheme}://{host.strip()}{api_path.split('?')[0]}"
 
-        module_name = f"Module.{args.option}"
+        module_name = f"Module.{args.module}"
         module = __import__(module_name, fromlist=["run"])
         module.run((method, api_path, headers, body, is_json, verify), args.params, url)
     except SystemExit:
