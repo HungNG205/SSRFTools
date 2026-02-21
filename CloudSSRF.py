@@ -26,19 +26,10 @@ def main():
             epilog="Example usage: python CloudSSRF.py -f request_exam.txt -p url -s http -o scanNet",
         )
         parser.add_argument("-f", "--file", required=True, help="Request file path")
-        parser.add_argument(
-            "-p", "--params", required=True, help="Parameter to test SSRF"
-        )
-        parser.add_argument(
-            "-s", "--scheme", required=True, help="Protocol scheme (http or https)"
-        )
-        parser.add_argument(
-            "-o",
-            "--option",
-            required=True,
-            choices=["scanNet", "scanPort", "scanAPI", "exploitMetadata"],
-            help="option of scan/exploit",
-        )
+        parser.add_argument("-p", "--params", required=True, help="Parameter to test SSRF")
+        parser.add_argument("-s", "--scheme", required=True, help="Protocol scheme (http or https)")     
+        parser.add_argument("-o", "--option", required=True, choices=["scanNet", "scanPort", "scanAPI", "exploitMetadata"], help="option of scan/exploit")
+
         args = parser.parse_args()
         file_path = args.file
         params = args.params
