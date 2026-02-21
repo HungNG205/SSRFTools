@@ -1,6 +1,6 @@
 import ipaddress
 import httpx
-from Utils.runThread import threads
+from Utils.runThread import run_threads
 from Utils.makeRequest import make_request
 
 
@@ -35,4 +35,4 @@ def run(request_info, params, url):
     def worker(ip):
         scanNet(request_info, params, ip, url)
 
-    threads(networks, worker)
+    run_threads(networks, worker)

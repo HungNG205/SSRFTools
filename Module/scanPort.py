@@ -44,4 +44,4 @@ def run(request_info, params, url):
     def worker(port):
         scanPort(request_info, params, network_target, port, url)
 
-    threads(ports, worker)
+    run_threads(ports, worker)

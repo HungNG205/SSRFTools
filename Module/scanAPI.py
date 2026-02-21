@@ -1,6 +1,6 @@
 import httpx
 from urllib.parse import urlparse
-from Utils.runThread import threads
+from Utils.runThread import run_threads
 from Utils.makeRequest import make_request
 
 
@@ -31,4 +31,4 @@ def run(request_info, params, url):
     def worker(api):
         scanAPI(request_info, params, api, url)
 
-    threads(api_list, worker)
+    run_threads(api_list, worker)
