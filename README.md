@@ -1,8 +1,8 @@
 # SSRFTools
 
-Tool test SSRF đơn giản cho lab/pentest được ủy quyền.
+Tool SSRF phục vụ chính cho việc khai thác SSRF trên Cloud
 
-## Cài đặt
+## Cài đặt tools
 
 ```bash
 git clone <repo-url>
@@ -10,18 +10,16 @@ cd SSRFTools
 pip install -r requirements.txt
 ```
 
-## Chạy
+## Chạy tools
 
 ```bash
 python CloudSSRF.py -f request_exam.txt -p profilePicture -s https -o scanNet
 ```
 
-Tuỳ chọn: thêm `--rps 5` để giới hạn tổng request/s (0 = không giới hạn).
-
 Tham số:
 
-- `-f`: file raw HTTP request
-- `-p`: param chứa URL cần test SSRF
+- `-f`: file raw request
+- `-p`: param cần test SSRF
 - `-s`: `http` hoặc `https`
 - `-o`: `scanNet` | `scanPort` | `scanAPI` | `exploitMetadata`
 
