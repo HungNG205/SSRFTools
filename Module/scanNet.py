@@ -6,7 +6,7 @@ from Utils.runThread import threads
 def scanNet(request_info, params, ip, url):
     try:
         method, _, header, body, is_json, verify = request_info
-        
+
         with httpx.Client(http2=True, verify=verify, timeout=3) as client:
             if method == "POST" or method == "PUT":
                 body_data = body.copy()
@@ -30,7 +30,6 @@ def scanNet(request_info, params, ip, url):
                 if "ECONNREFUSED" in body_res:
                     print(f"Network {ip} is open but connection refused.")
                 else:
-                    print(body_res[:100])
                     print(f"Network {ip} is closed/filtered.")
     except httpx.RequestError as exc:
         print(f"Network {ip} does not exist by (timeout).")

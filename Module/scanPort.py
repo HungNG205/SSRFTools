@@ -19,6 +19,7 @@ def scanPort(request_info, params, network, port, url):
                     response = client.request(method, url, headers=header, data=body_str)
             elif method == "GET":
                 response = client.request(method, url, headers=header, params={params: f"http://{network}:{port}"})
+            print("-" * 50)
             print(f"[Port {port}] Status: {response.status_code}")
 
             if response.status_code == 200:
@@ -26,6 +27,7 @@ def scanPort(request_info, params, network, port, url):
             else:
                 print(response.text)
                 print(f"Port {port} is closed/filtered.")
+            print("-" * 50)
     except httpx.RequestError as exc:
         print(f"Port {port} is closed by (timeout).")
 

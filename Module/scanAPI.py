@@ -21,13 +21,14 @@ def scanAPI(request_info, params, api, url):
 
             elif method == "GET":
                 response = client.request(method, url, headers=header, params={params: f"{baseUrl}{api}"})
-
+            print("-" * 50)
             print(f"[API {api}] Status: {response.status_code}")
 
             if response.status_code == 200:
                 print(f"API {api} is accessible.")
             else:
                 print(f"API {api} is closed/filtered.")
+            print("-" * 50)
     except httpx.RequestError as exc:
         print(f"API {api} is not accessible/exist by (timeout).")
 
