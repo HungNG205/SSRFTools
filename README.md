@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ## Chạy tools
 
 ```bash
-python CloudSSRF.py -f request_exam.txt -p profilePicture -s https -o scanNet
+python CloudSSRF.py -f request_exam.txt -p profilePicture -s https -m scanNet
 ```
 
 Tham số:
@@ -21,7 +21,7 @@ Tham số:
 - `-f`: file raw request
 - `-p`: param cần test SSRF
 - `-s`: `http` hoặc `https`
-- `-o`: `scanNet` | `scanPort` | `scanAPI` | `exploitMetadata`
+- `-m`: `scanNet` | `scanPort` | `scanAPI` | `exploitMetadata`
 
 ## Format request mẫu
 
