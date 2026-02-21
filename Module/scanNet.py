@@ -1,22 +1,21 @@
 import ipaddress
 import requests
-from Module.runThread import threads
+from Utils.runThread import threads
 
 def scanNet(request_info, params, network, url):
     try:
-        method, _ , header, body, is_json = request_info
+        method, _ , header, body, is_json, verify = request_info
         if method == "POST" or method == "PUT":
             body_data = body.copy()
             if params in body_data:
                 body_data[params] = f"http://{network}"
 
             if is_json:
-                response = requests.request(method, url, headers=header, json=body_data, timeout=3)
+                response = requests.request(method, url, headers=header, json=body_data, timeout=3, verify=verify)
             else:
-                body_str = "&".join([f"{k}={v}" for k, v in body_data.items()])
-                response = requests.request(method, url, headers=header, data=body_str, timeout=3)
+                response = requests.request(method, url, headers=header, data=body_data, timeout=3, verify=verify)
         elif method == "GET":
-            response = requests.request(method, url, headers=header, params={params: f"http://{network}"}, timeout=3)   
+            response = requests.request(method, url, headers=header, params={params: f"http://{network}"}, timeout=3, verify=verify)   
         
         print(f"[{network}] Status: {response.status_code}")
         

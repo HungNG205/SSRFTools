@@ -1,5 +1,5 @@
 import argparse
-from request_parse import parse_request
+from Utils.request_parse import parse_request
 
 def print_banner():
     banner = r"""
@@ -27,19 +27,20 @@ def main():
     args = parser.parse_args()
     file_path = args.file
     params = args.params
-    scheme = args.scheme
+    scheme = args.scheme.lower()
+    verify = True
     method, api_path, header, body, is_json = parse_request(file_path)
     if scheme == "https":
-        header["Verify"] = "False"
+        verify = False
     url = f"{scheme}://{header['Host'].strip()}{api_path.split('?')[0]}"
     try:
         module_name = f"Module.{args.option}"
         mod = __import__(module_name, fromlist=['run'])
-        mod.run((method, api_path, header, body, is_json), args.params, url)
+        mod.run((method, api_path, header, body, is_json, verify), args.params, url)
     except ImportError as e:
-        print(f"[!] Error loading module {args.option}: {e}")
+        print(f"Error loading module {args.option}: {e}")
     except Exception as e:
-        print(f"[!] Runtime error: {e}")
+        print(f"Runtime error: {e}")
     
 if __name__ == "__main__":
     main()

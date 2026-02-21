@@ -1,10 +1,9 @@
 import requests
-
-from Module.runThread import threads
+from Utils.runThread import threads
 
 def scanPort(request_info, params, network, port, url):
     try:
-        method, _ , header, body, is_json = request_info
+        method, _ , header, body, is_json, verify = request_info
 
         if method == "POST" or method == "PUT":
             body_data = body.copy()
@@ -12,12 +11,12 @@ def scanPort(request_info, params, network, port, url):
                 body_data[params] = f"http://{network}:{port}"
 
             if is_json:
-                response = requests.request(method, url, headers=header, json=body_data, timeout=3)
+                response = requests.request(method, url, headers=header, json=body_data, timeout=3, verify=verify)
             else:
                 body_str = "&".join([f"{k}={v}" for k, v in body_data.items()])
-                response = requests.request(method, url, headers=header, data=body_str, timeout=3)
+                response = requests.request(method, url, headers=header, data=body_str, timeout=3, verify=verify)
         elif method == "GET":
-            response = requests.request(method, url, headers=header, params={params: f"http://{network}:{port}"}, timeout=3)        
+            response = requests.request(method, url, headers=header, params={params: f"http://{network}:{port}"}, timeout=3, verify=verify)        
         print(f"[Port {port}] Status: {response.status_code}")
         
         if response.status_code == 200:
