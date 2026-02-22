@@ -6,12 +6,12 @@ from Utils.makeRequest import make_request
 
 def scanAPI(request_info, params, api, url):
     try:
-        method, _, header, body, is_json, verify = request_info
+        method, _, header, body, verify = request_info
         baseUrl = f"{urlparse(url).scheme}://{urlparse(url).netloc}"
         payload = f"{baseUrl}{api}"
 
         with httpx.Client(http2=True, verify=verify, timeout=3) as client:
-            response = make_request(client, method, url, header, body, params, payload, is_json)
+            response = make_request(client, method, url, header, body, params, payload)
 
             print("-"*50)
             print(f"[API {api}] Status: {response.status_code}")

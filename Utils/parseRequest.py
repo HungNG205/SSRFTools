@@ -16,13 +16,11 @@ def parse_request(request_file):
             headers[key] = value
         body = f.read().strip()
         
-    is_json = False
     body_dict = {}
     if body:
         try:
             body_dict = json.loads(body)
-            is_json = True
         except json.JSONDecodeError:
             body_dict = dict(parse_qsl(body, keep_blank_values=True))
-    return method, api_path, headers, body_dict, is_json
+    return method, api_path, headers, body_dict
     

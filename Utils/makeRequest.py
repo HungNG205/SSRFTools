@@ -1,9 +1,10 @@
-def make_request(client, method, url, headers, body, params, payload, is_json):
+def make_request(client, method, url, headers, body, params, payload):
     body_data = body.copy()
     body_data[params] = payload
     
     if method in ["POST", "PUT"]:
-        if is_json:
+        content_type = headers.get("Content-Type", "")
+        if "json" in content_type:
             return client.request(method, url, headers=headers, json=body_data)
         else:
             body_str = "&".join([f"{k}={v}" for k, v in body_data.items()])

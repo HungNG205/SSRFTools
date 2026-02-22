@@ -35,7 +35,7 @@ def main():
         file_path = args.file
         scheme = args.scheme.lower()
         verify = True
-        method, api_path, headers, body, is_json = parse_request(file_path)
+        method, api_path, headers, body = parse_request(file_path)
         if scheme == "https":
             verify = False
 
@@ -47,7 +47,7 @@ def main():
         url = f"{scheme}://{host.strip()}{api_path.split('?')[0]}"
         module_name = f"Module.{args.module}"
         module = importlib.import_module(module_name)
-        module.run((method, api_path, headers, body, is_json, verify), args.params, url)
+        module.run((method, api_path, headers, body, verify), args.params, url)
     except SystemExit:
         print("Error: Invalid command-line arguments. Use -h for help.")
     except FileNotFoundError as e:

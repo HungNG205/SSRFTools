@@ -6,11 +6,11 @@ from Utils.makeRequest import make_request
 
 def scanNet(request_info, params, ip, url):
     try:
-        method, _, header, body, is_json, verify = request_info
+        method, _, header, body, verify = request_info
         payload = f"http://{ip}"
 
         with httpx.Client(http2=True, verify=verify, timeout=3) as client:
-            response = make_request(client, method, url, header, body, params, payload, is_json)
+            response = make_request(client, method, url, header, body, params, payload)
 
             print("-"*50)
             print(f"[{ip}] Status: {response.status_code}")
