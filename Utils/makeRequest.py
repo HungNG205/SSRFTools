@@ -1,8 +1,8 @@
 def make_request(client, method, url, headers, body, params, payload):
     body_data = body.copy()
-    body_data[params] = payload
     
     if method in ["POST", "PUT"]:
+        body_data[params] = payload
         content_type = headers.get("Content-Type", "")
         if "json" in content_type:
             return client.request(method, url, headers=headers, json=body_data)
