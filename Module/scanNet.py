@@ -19,9 +19,10 @@ def scanNet(request_info, params, ip, url):
             else:
                 body_res = response.text
                 if "ECONNREFUSED" in body_res:
-                    print(f"Network {ip} is open but connection refused.")
+                    print()
+                    print(f"{body_res} - Network {ip} is open but connection refused.")
                 else:
-                    print(f"Network {ip} is closed/filtered.")
+                    print(f"{body_res} - Network {ip} is closed/filtered.")
             print("-"*50)
     except httpx.RequestError as exc:
         print(f"Network {ip} does not exist by (timeout).")
