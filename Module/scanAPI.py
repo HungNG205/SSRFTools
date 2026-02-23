@@ -4,10 +4,10 @@ from Utils.runThread import run_threads
 from Utils.makeRequest import make_request
 
 
-def scanAPI(request_info, params, api, url):
+def scanAPI(request_info, params, api, url, url_testAPI):
     try:
         method, _, header, body, verify = request_info
-        baseUrl = f"{urlparse(url).scheme}://{urlparse(url).netloc}"
+        baseUrl = f"{urlparse(url).scheme}://{urlparse(url_testAPI).netloc}"
         payload = f"{baseUrl}{api}"
 
         with httpx.Client(http2=True, verify=verify, timeout=3) as client:
@@ -25,10 +25,11 @@ def scanAPI(request_info, params, api, url):
 
 
 def run(request_info, params, url):
+    url_testAPI = input("Network testing for API endpoints: ")
     with open("PayloadSSRF/ApiTesting.txt", "r") as f:
         api_list = [line.strip() for line in f if line.strip()]
 
     def worker(api):
-        scanAPI(request_info, params, api, url)
+        scanAPI(request_info, params, api, url, url_testAPI)
 
     run_threads(api_list, worker)
