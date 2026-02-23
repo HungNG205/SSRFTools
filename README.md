@@ -23,6 +23,7 @@ Tham số:
 - `-s`: `http` hoặc `https`
 - `-m`: `scanNet` | `scanPort` | `scanAPI` | `exploitCloud`
 
+ScanAPI tam thoi xoa
 ## Format request mẫu
 
 ```http

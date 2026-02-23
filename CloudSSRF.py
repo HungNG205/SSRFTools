@@ -29,25 +29,17 @@ def main():
         parser.add_argument("-f", "--file", required=True, help="Request file path")
         parser.add_argument("-p", "--params", required=True, help="Parameter to test SSRF")
         parser.add_argument("-s", "--scheme", required=True, help="Protocol scheme (http or https)")     
-        parser.add_argument("-m", "--module", required=True, choices=["scanNet", "scanPort", "scanAPI", "exploitCloud"], help="option of scan/exploit")
+        parser.add_argument("-m", "--module", required=True, 
+                            choices=["scanNet", "scanPort", "exploitCloud"], 
+                            help="option of scan/exploit")
        
         args = parser.parse_args()
-        file_path = args.file
-        scheme = args.scheme.lower()
-        verify = True
-        method, api_path, headers, body = parse_request(file_path)
-        if scheme == "https":
-            verify = False
+       #Parse request file: parseRequest.py
 
-        host = headers.get("Host")
-        if not host:
-            print("Error: Missing required Host header in request file.")
-            return
-
-        url = f"{scheme}://{host.strip()}{api_path.split('?')[0]}"
         module_name = f"Module.{args.module}"
         module = importlib.import_module(module_name)
-        module.run((method, api_path, headers, body, verify), args.params, url)
+    
+        #Run selected module module.run()
     except SystemExit:
         print("Error: Invalid command-line arguments. Use -h for help.")
     except FileNotFoundError as e:
