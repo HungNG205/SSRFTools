@@ -31,7 +31,7 @@ def scanNet(request_info, params, ip, url):
 def run(request_info, params, url):
     target_subnet = input("Target IP/CIDR (e.g., 192.168.0.1/20): ").strip()
     network = ipaddress.ip_network(target_subnet, strict=False)
-    networks = list(network.hosts())
+    networks = list(network.hosts())[:40]
 
     def worker(ip):
         scanNet(request_info, params, ip, url)

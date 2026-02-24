@@ -48,7 +48,9 @@ def main():
         module_name = f"Module.{args.module}"
         module = importlib.import_module(module_name)
         module.run((method, api_path, headers, body, verify), args.params, url)
-    except SystemExit:
+    except SystemExit as e:
+        if e.code in (0, None):
+            return
         print("Error: Invalid command-line arguments. Use -h for help.")
     except FileNotFoundError as e:
         print(f"Error: Request file not found: {e}")

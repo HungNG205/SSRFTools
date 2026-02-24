@@ -15,12 +15,9 @@ def scanPort(request_info, params, network, port, url):
             print(f"[Port {port}] Status: {response.status_code}")
             if response.status_code == 200:
                 print(f"Port {port} is open.")
-            else:
-                print(response.text)
-                print(f"Port {port} is closed/filtered.")
             print("-"*50)
     except httpx.RequestError as exc:
-        print(f"Port {port} is closed by (timeout).")
+        return
 
 
 def parse_ports(value):
@@ -39,7 +36,8 @@ def parse_ports(value):
 
 def run(request_info, params, url):
     network_target = input("Network to scan: ").strip()
-    ports = parse_ports(input("Ports (ex: 80 / 80,443 / 1-1024): ").strip())
+    with open("PayloadSSRF/Port.txt", "r") as f:
+        ports = [int(port.strip()) for port in f.readlines()]
 
     def worker(port):
         scanPort(request_info, params, network_target, port, url)

