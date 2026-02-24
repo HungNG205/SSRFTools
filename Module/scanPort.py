@@ -20,20 +20,6 @@ def scanPort(request_info, params, network, port, url):
         return
 
 
-def parse_ports(value):
-    if not value.strip():
-        return [1]
-
-    if "-" in value:
-        start, end = value.split("-")
-        return list(range(int(start), int(end) + 1))
-
-    if "," in value:
-        return [int(p.strip()) for p in value.split(",")]
-
-    return [int(value)]
-
-
 def run(request_info, params, url):
     network_target = input("Network to scan: ").strip()
     with open("PayloadSSRF/Port.txt", "r") as f:
