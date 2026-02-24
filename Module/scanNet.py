@@ -9,7 +9,7 @@ def scanNet(request_info, params, ip, url):
         method, _, header, body, verify = request_info
         payload = f"http://{ip}"
 
-        with httpx.Client(http2=True, verify=verify, timeout=3) as client:
+        with httpx.Client(http2=True, verify=verify, timeout=5) as client:
             response = make_request(client, method, url, header, body, params, payload)
 
             message = f"[{ip}] Status: {response.status_code}"
