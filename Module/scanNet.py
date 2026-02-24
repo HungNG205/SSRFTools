@@ -13,7 +13,6 @@ def scanNet(request_info, params, ip, url):
             response = make_request(client, method, url, header, body, params, payload)
 
             message = f"[{ip}] Status: {response.status_code}"
-            print(message)
             if response.status_code == 200:
                 print(f"{message} - Network {ip} is open.")
             else:
