@@ -14,7 +14,7 @@ def scanPort(request_info, params, network, port, url):
         with httpx.Client(http2=True, verify=verify, timeout=5) as client:
             response = make_request(client, method, url, header, body, params, payload)
             if response.status_code == 200:
-                console.print(f"[bold green][+][/bold green] Port [cyan]{port}[/cyan] is open.")
+                return f"[bold green][+][/bold green] Port [cyan]{port}[/cyan] is open."
             else:
                 pass
     except httpx.RequestError as exc:
@@ -37,10 +37,10 @@ def run(request_info, params, url):
     if not ports:
         return
 
-    console.print(f"[bold yellow]Scanning {len(ports)} ports on {network_target}...[/bold yellow]")
+    console.print(f"\n[bold yellow]Scanning {len(ports)} ports on {network_target}...[/bold yellow]")
 
     def worker(port):
-        scanPort(request_info, params, network_target, port, url)
+        return scanPort(request_info, params, network_target, port, url)
 
     run_threads(ports, worker)
     console.print("[bold green]Port scan completed.[/bold green]")

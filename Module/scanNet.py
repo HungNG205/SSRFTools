@@ -16,11 +16,11 @@ def scanNet(request_info, params, ip, url):
             response = make_request(client, method, url, header, body, params, payload)
 
             if response.status_code == 200:
-                console.print(f"[bold green][+][/bold green] Network [cyan]{ip}[/cyan] is open. [dim](Status: {response.status_code})[/dim]")
+                return f"[bold green][+][/bold green] Network [cyan]{ip}[/cyan] is open. [dim](Status: {response.status_code})[/dim]"
             else:
                 body_res = response.text
                 if "ECONNREFUSED" in body_res:
-                    console.print(f"[bold green][+][/bold green] Network [cyan]{ip}[/cyan] is open. [dim](Status: {response.status_code})[/dim]")
+                    return f"[bold green][+][/bold green] Network [cyan]{ip}[/cyan] is open. [dim](Status: {response.status_code})[/dim]"
                 else:
                     pass
     except httpx.RequestError as exc:
@@ -36,10 +36,10 @@ def run(request_info, params, url):
         console.print(f"[bold red]Invalid IP/CIDR:[/bold red] {e}")
         return
 
-    console.print(f"[bold yellow]Scanning {len(networks)} hosts in {network}...[/bold yellow]")
+    console.print(f"\n[bold yellow]Scanning {len(networks)} hosts in {network}...[/bold yellow]")
 
     def worker(ip):
-        scanNet(request_info, params, ip, url)
+        return scanNet(request_info, params, ip, url)
 
     run_threads(networks, worker)
     console.print("[bold green]Network scan completed.[/bold green]")
