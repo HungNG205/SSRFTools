@@ -12,15 +12,16 @@ def scanNet(request_info, params, ip, url):
         with httpx.Client(http2=True, verify=verify, timeout=3) as client:
             response = make_request(client, method, url, header, body, params, payload)
 
-            print(f"[{ip}] Status: {response.status_code}")
+            message = f"[{ip}] Status: {response.status_code}"
+            print(message)
             if response.status_code == 200:
-                print(f"Network {ip} is open.")
+                print(f"{message} - Network {ip} is open.")
             else:
                 body_res = response.text
                 if "ECONNREFUSED" in body_res:
-                    print(f"{body_res} - Network {ip} is open but connection refused.")
+                    print(f"{message} | {body_res} - Network {ip} is open but connection refused.")
                 else:
-                    print(f"{body_res} - Network {ip} is closed/filtered.")
+                    print(f"{message} | {body_res} - Network {ip} is closed/filtered.")
     except httpx.RequestError as exc:
         return
 

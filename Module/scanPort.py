@@ -10,12 +10,9 @@ def scanPort(request_info, params, network, port, url):
 
         with httpx.Client(http2=True, verify=verify, timeout=3) as client:
             response = make_request(client, method, url, header, body, params, payload)
-            
-            print("-"*50)
-            print(f"[Port {port}] Status: {response.status_code}")
+
             if response.status_code == 200:
-                print(f"Port {port} is open.")
-            print("-"*50)
+                print(f"Status Code {response.status_code} - Port {port} is open.")
     except httpx.RequestError as exc:
         return
 
