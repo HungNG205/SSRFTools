@@ -6,13 +6,13 @@ from rich.prompt import Prompt
 
 console = Console()
 
-def scanPort(request_info,  network, port, url):
+def scanPort(request_info, params, network, port, url):
     try:
         method, _, header, body, verify = request_info
         payload = f"http://{network}:{port}"
 
         with httpx.Client(http2=True, verify=verify, timeout=3) as client:
-            response = make_request(client, method, url, header, body, params, payload)
+            response = make_request(client, method, url, header, body, payload, params)
             if response.status_code == 200:
                 console.print(f"[bold green][+][/bold green] Port [cyan]{port}[/cyan] is open.")
             else:
