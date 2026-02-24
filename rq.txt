@@ -1,0 +1,21 @@
+PUT /api-v1/api/user/update/cover HTTP/2
+Host: ssrflab.dpdns.org
+Cookie: __Host-authjs.csrf-token=b57260691946e019da3bedcebc7fdd7c6368a6cf2f2d5e96ce44927cd722ee7b%7Cc42c5157e6e3fc80b1fd529066203e1ddf9caeccfeeacb2b9a56c3779c668e4e; __Secure-authjs.callback-url=https%3A%2F%2Fssrflab.dpdns.org%2F
+Content-Length: 109
+Sec-Ch-Ua-Platform: "Windows"
+Accept-Language: en-US,en;q=0.9
+Sec-Ch-Ua: "Chromium";v="143", "Not A(Brand";v="24"
+Auth-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5OWM3NTJiMTU5NmZkZDMxMjhkZjhjNSIsImlhdCI6MTc3MTkxOTQ5NiwiZXhwIjoxNzc0NTExNDk2fQ.lyoW2KeXRI-uLEs9O3Wyq-koaUuB9JZIUM_hdoCh_bM
+Sec-Ch-Ua-Mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36
+Accept: application/json, text/plain, */*
+Content-Type: application/json
+Origin: https://ssrflab.dpdns.org
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://ssrflab.dpdns.org/settings
+Accept-Encoding: gzip, deflate, br
+Priority: u=1, i
+
+{"coverImage":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFYqoKTu_o3Zns2yExbst2Co84Gpc2Q1RJbA&s"}
