@@ -24,7 +24,7 @@ def main():
     try:
         parser = argparse.ArgumentParser(
             description="Cloud SSRF",
-            epilog="Example usage: python CloudSSRF.py -f request_exam.txt -p url -s http -o scanNet",
+            epilog="Example usage: python CloudSSRF.py -f request_exam.txt -p url -s http -m scanNet",
         )
         parser.add_argument("-f", "--file", required=True, help="Request file path")
         parser.add_argument("-p", "--params", required=True, help="Parameter to test SSRF")
