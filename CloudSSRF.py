@@ -3,33 +3,20 @@ import argparse
 from Utils.parseRequest import parse_request
 import importlib
 
-
 def print_banner():
     banner_text = r"""
-        __   _
-    __(  )_( )_
-   (_   _    _)_
-  / /(_) (__)   
- ____  ____  ____  _____ 
-/ ___|/ ___||  _ \|  ___|
-\___ \\___ \| |_) | |_   
- ___) |___) |  _ <|  _|  
-|____/|____/|_| \_\_|    
-"""
-    usage_text = """
-Usage Options:
-    -f, --file     Request file path (required)
-    -p, --params   Parameter to test SSRF (required)
-    -s, --scheme   Protocol scheme: http or https (required)
-    -m, --module   Module to run: scanNet, scanPort, exploitCloud (required)
-
-Example:
-    python CloudSSRF.py -f request_exam.txt -p url -s http -m scanNet
-"""
-    print("Cloud SSRF v1.0")
+    [96m        __   _
+         __(  )_( )_
+        (_   _    _)_
+       / /(_) (__)   [0m
+    [91m ____  ____  ____  _____ 
+    / ___|/ ___||  _ \|  ___|
+    \___ \\___ \| |_) | |_   
+     ___) |___) |  _ <|  _|  
+    |____/|____/|_| \_\_|    [0m
+    [93m[ Cloud SSRF v1.0 ][0m
+    """
     print(banner_text)
-    print(usage_text)
-
 
 def main():
     print_banner()
