@@ -1,10 +1,6 @@
 import httpx
 from Utils.runThread import run_threads
 from Utils.makeRequest import make_request
-from rich.console import Console
-from rich.prompt import Prompt
-
-console = Console()
 
 def scanPort(request_info, params, network, port, url):
     try:
@@ -14,11 +10,10 @@ def scanPort(request_info, params, network, port, url):
         with httpx.Client(http2=True, verify=verify, timeout=5) as client:
             response = make_request(client, method, url, header, body, params, payload)
             if response.status_code == 200:
-                return f"[bold green][+][/bold green] Port [cyan]{port}[/cyan] is open."
-            else:
-                pass
+                return f"[+] Port {port} is open."
+
     except httpx.RequestError as exc:
-        pass
+        return
 
 
 def read_port():
@@ -27,20 +22,20 @@ def read_port():
             port_list = [int(line.strip()) for line in f.readlines()]
         return port_list
     except FileNotFoundError:
-        console.print("[bold red]Error:[/bold red] PayloadSSRF/PortList.txt not found.")
+        print("Error: PayloadSSRF/PortList.txt not found.")
         return []
 
 
 def run(request_info, params, url):
-    network_target = Prompt.ask("[bold blue]Network to scan[/bold blue] (e.g., 127.0.0.1)").strip()
+    network_target = input("Network to scan (e.g., 127.0.0.1): ").strip()
     ports = read_port()
     if not ports:
         return
 
-    console.print(f"\n[bold yellow]Scanning {len(ports)} ports on {network_target}...[/bold yellow]")
+    print(f"\nScanning {len(ports)} ports on {network_target}...")
 
     def worker(port):
         return scanPort(request_info, params, network_target, port, url)
 
     run_threads(ports, worker)
-    console.print("[bold green]Port scan completed.[/bold green]")
+    print("Port scan completed.")

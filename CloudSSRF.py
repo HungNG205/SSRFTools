@@ -2,11 +2,6 @@
 import argparse
 from Utils.parseRequest import parse_request
 import importlib
-from rich.console import Console
-from rich.panel import Panel
-from rich.text import Text
-
-console = Console()
 
 def print_banner():
     banner_text = r"""
@@ -20,24 +15,19 @@ def print_banner():
  ___) |___) |  _ <|  _|  
 |____/|____/|_| \_\_|    
 """
-    usage_text = """
-[bold green]Usage Options:[/bold green]
-  [cyan]-f, --file[/cyan]     Request file path (required)
-  [cyan]-p, --params[/cyan]   Parameter to test SSRF (required)
-  [cyan]-s, --scheme[/cyan]   Protocol scheme: http or https (required)
-  [cyan]-m, --module[/cyan]   Module to run: scanNet, scanPort, exploitCloud (required)
+        usage_text = """
+Usage Options:
+    -f, --file     Request file path (required)
+    -p, --params   Parameter to test SSRF (required)
+    -s, --scheme   Protocol scheme: http or https (required)
+    -m, --module   Module to run: scanNet, scanPort, exploitCloud (required)
 
-[bold magenta]Example:[/bold magenta]
-  python CloudSSRF.py -f request_exam.txt -p url -s http -m scanNet
+Example:
+    python CloudSSRF.py -f request_exam.txt -p url -s http -m scanNet
 """
-    title = Text("Cloud SSRF v1.0", style="bold yellow")
-    panel = Panel(
-        Text.from_markup(f"[bold cyan]{banner_text}[/bold cyan]\n{usage_text}"), 
-        title=title, 
-        border_style="blue", 
-        expand=False
-    )
-    console.print(panel)
+        print("Cloud SSRF v1.0")
+        print(banner_text)
+        print(usage_text)
 
 
 def main():
@@ -62,7 +52,7 @@ def main():
 
         host = headers.get("Host")
         if not host:
-            console.print("[bold red]Error:[/bold red] Missing required Host header in request file.")
+            print("Error: Missing required Host header in request file.")
             return
 
         url = f"{scheme}://{host.strip()}{api_path.split('?')[0]}"
@@ -72,17 +62,17 @@ def main():
     except SystemExit as e:
         if e.code in (0, None):
             return
-        console.print("[bold red]Error:[/bold red] Invalid command-line arguments. Use -h for help.")
+        print("Error: Invalid command-line arguments. Use -h for help.")
     except FileNotFoundError as e:
-        console.print(f"[bold red]Error:[/bold red] Request file not found: {e}")
+        print(f"Error: Request file not found: {e}")
     except ValueError as e:
-        console.print(f"[bold red]Error:[/bold red] Invalid request file format: {e}")
+        print(f"Error: Invalid request file format: {e}")
     except ImportError as e:
-        console.print(f"[bold red]Error:[/bold red] Failed to load module: {e}")
+        print(f"Error: Failed to load module: {e}")
     except KeyboardInterrupt:
-        console.print("\n[bold yellow]Operation cancelled by user.[/bold yellow]")
+        print("\nOperation cancelled by user.")
     except Exception as e:
-        console.print(f"[bold red]Unexpected error:[/bold red] {e}")
+        print(f"Unexpected error: {e}")
 
 
 if __name__ == "__main__":

@@ -2,10 +2,6 @@ import ipaddress
 import httpx
 from Utils.runThread import run_threads
 from Utils.makeRequest import make_request
-from rich.console import Console
-from rich.prompt import Prompt
-
-console = Console()
 
 def scanNet(request_info, params, ip, url):
     try:
@@ -16,30 +12,29 @@ def scanNet(request_info, params, ip, url):
             response = make_request(client, method, url, header, body, params, payload)
 
             if response.status_code == 200:
-                return f"[bold green][+][/bold green] Network [cyan]{ip}[/cyan] is open. [dim](Status: {response.status_code})[/dim]"
+                return f"[+] Network {ip} is open. (Status: {response.status_code})"
             else:
                 body_res = response.text
                 if "ECONNREFUSED" in body_res:
-                    return f"[bold green][+][/bold green] Network [cyan]{ip}[/cyan] is open. [dim](Status: {response.status_code})[/dim]"
-                else:
-                    pass
+                    return f"[+] Network {ip} is open. (Status: {response.status_code})"
+
     except httpx.RequestError as exc:
-        pass
+        return
 
 
 def run(request_info, params, url):
-    target_subnet = Prompt.ask("[bold blue]Target IP/CIDR[/bold blue] (e.g., 192.168.0.1/20)").strip()
+    target_subnet = input("Target IP/CIDR (e.g., 192.168.0.1/20): ").strip()
     try:
         network = ipaddress.ip_network(target_subnet, strict=False)
         networks = list(network.hosts())[:40]
     except ValueError as e:
-        console.print(f"[bold red]Invalid IP/CIDR:[/bold red] {e}")
+        print(f"Invalid IP/CIDR: {e}")
         return
 
-    console.print(f"\n[bold yellow]Scanning {len(networks)} hosts in {network}...[/bold yellow]")
+    print(f"\nScanning {len(networks)} hosts in {network}...")
 
     def worker(ip):
         return scanNet(request_info, params, ip, url)
 
     run_threads(networks, worker)
-    console.print("[bold green]Network scan completed.[/bold green]")
+    print("Network scan completed.")
