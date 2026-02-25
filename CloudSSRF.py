@@ -3,6 +3,7 @@ import argparse
 from Utils.parseRequest import parse_request
 import importlib
 
+
 def print_banner():
     banner_text = r"""
         __   _
@@ -15,7 +16,7 @@ def print_banner():
  ___) |___) |  _ <|  _|  
 |____/|____/|_| \_\_|    
 """
-        usage_text = """
+    usage_text = """
 Usage Options:
     -f, --file     Request file path (required)
     -p, --params   Parameter to test SSRF (required)
@@ -25,9 +26,9 @@ Usage Options:
 Example:
     python CloudSSRF.py -f request_exam.txt -p url -s http -m scanNet
 """
-        print("Cloud SSRF v1.0")
-        print(banner_text)
-        print(usage_text)
+    print("Cloud SSRF v1.0")
+    print(banner_text)
+    print(usage_text)
 
 
 def main():
