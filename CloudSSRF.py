@@ -29,7 +29,9 @@ def main():
         parser.add_argument("-f", "--file", required=True, help="Request file path")
         parser.add_argument("-p", "--params", required=True, help="Parameter to test SSRF")
         parser.add_argument("-s", "--scheme", required=True, help="Protocol scheme (http or https)")     
-        parser.add_argument("-m", "--module", required=True, choices=["scanNet", "scanPort", "exploitCloud"], help="option of scan/exploit")
+        parser.add_argument("-m", "--module", required=True, 
+                            choices=["scanNet", "scanPort", "exploitCloud"],
+                              help="option of scan/exploit")
        
         args = parser.parse_args()
         file_path = args.file
