@@ -1,4 +1,4 @@
-# SSRFTools
+# CloudSSRF
 
 Tool SSRF phục vụ chính cho việc khai thác SSRF trên Cloud
 
