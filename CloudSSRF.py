@@ -1,10 +1,10 @@
+
 import argparse
 from Utils.parseRequest import parse_request
 import importlib
 
-
 def print_banner():
-    banner = r"""
+    banner_text = r"""
     [96m        __   _
          __(  )_( )_
         (_   _    _)_
@@ -16,8 +16,7 @@ def print_banner():
     |____/|____/|_| \_\_|    [0m
     [93m[ Cloud SSRF v1.0 ][0m
     """
-    print(banner)
-
+    print(banner_text)
 
 def main():
     print_banner()
