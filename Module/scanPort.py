@@ -18,11 +18,11 @@ def scanPort(request_info, params, network, port, url):
 
 def read_port():
     try:
-        with open("PayloadSSRF/PortList.txt", "r") as f:
+        with open("PayloadSSRF/Port.txt", "r") as f:
             port_list = [int(line.strip()) for line in f.readlines()]
         return port_list
     except FileNotFoundError:
-        print("Error: PayloadSSRF/PortList.txt not found.")
+        print("Error: PayloadSSRF/Port.txt not found.")
         return []
 
 
