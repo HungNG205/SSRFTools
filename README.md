@@ -21,9 +21,8 @@ Tham số:
 - `-f`: file raw request
 - `-p`: param cần test SSRF
 - `-s`: `http` hoặc `https`
-- `-m`: `scanNet` | `scanPort` | `scanAPI` | `exploitCloud`
+- `-m`: `scanNet` | `scanPort` | `exploitCloud`
 
-ScanAPI tam thoi xoa
 ## Format request mẫu
 
 ```http
