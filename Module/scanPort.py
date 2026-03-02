@@ -7,7 +7,7 @@ def scanPort(request_info, params, network, port, url):
         method, _, header, body, verify = request_info
         payload = f"http://{network}:{port}"
 
-        with httpx.Client(http2=True, verify=verify, timeout=30) as client:
+        with httpx.Client(http2=True, verify=verify, timeout=10) as client:
             response = make_request(client, method, url, header, body, params, payload)
             if response.status_code == 200:
                 return f"[+] Port {port} is open."
