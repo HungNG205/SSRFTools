@@ -20,7 +20,7 @@ def run(request_info, params, url):
     try:
         network_target = input("Network to scan (e.g., 127.0.0.1): ").strip()
         with open("PayloadSSRF/Port.txt", "r") as f:
-            ports = [line.strip() for line in f if line.strip().isdigit()]
+            ports = [int(line.strip()) for line in f if line.strip().isdigit()]
         print(f"\nScanning {len(ports)} ports on {network_target}...")
         def worker(port):
             return scanPort(request_info, params, network_target, port, url)
