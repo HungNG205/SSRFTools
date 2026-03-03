@@ -5,10 +5,10 @@ from Utils.makeRequest import make_request
 
 def scanNet(request_info, params, ip, url):
     try:
-        method, _, header, body, verify = request_info
+        method, _, header, body= request_info
         payload = f"http://{ip}"
 
-        with httpx.Client(http2=True, verify=verify, timeout=10) as client:
+        with httpx.Client(http2=True, verify=False, timeout=10) as client:
             response = make_request(client, method, url, header, body, params, payload)
 
             if response.status_code == 200:
@@ -16,7 +16,7 @@ def scanNet(request_info, params, ip, url):
             else:
                 body_res = response.text
                 if "ECONNREFUSED" in body_res:
-                    return f"[+] Network {ip} is open.)"
+                    return f"[+] Network {ip} is open."
 
     except httpx.RequestError as exc:
         return

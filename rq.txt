@@ -1,21 +1,14 @@
-PUT /api-v1/api/user/update/avatar HTTP/2
-Host: ssrflab.dpdns.org
-Cookie: __Host-authjs.csrf-token=53ccfd223c0481e341d0aac3b3815d00feaad7a941245237671b93ec4f6f8455%7C4b182cccb28a28c9b6df50d05795b2509866ac79c3cfd7eed134e1a49f390db0; __Secure-authjs.callback-url=https%3A%2F%2Fssrflab.dpdns.org%2F
-Content-Length: 113
-Sec-Ch-Ua-Platform: "Windows"
+PUT /api/user/update/avatar HTTP/1.1
+Host: 188.166.231.225:5000
+Content-Length: 86
 Accept-Language: en-US,en;q=0.9
-Sec-Ch-Ua: "Chromium";v="137", "Not/A)Brand";v="24"
-Auth-Token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTFhZTRiMzY0NjQ3MmQxMTEyMWU3NyIsImlhdCI6MTc3MjQzMTY4MywiZXhwIjoxNzc1MDIzNjgzfQ.yBV5v7k8gxnMHzNphfGJ75RypH4wqIUn5Gau9G-j6OI
-Sec-Ch-Ua-Mobile: ?0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
 Accept: application/json, text/plain, */*
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTZlNmM0MzA0MTU5MGUxNmQ3N2RkNyIsImlhdCI6MTc3MjU0NjA1OCwiZXhwIjoxNzc1MTM4MDU4fQ.FVH-du7cdZ5x0NBVnYZw0_VxRwaJxb6Dqcs6szwVZ2w
 Content-Type: application/json
-Origin: https://ssrflab.dpdns.org
-Sec-Fetch-Site: same-origin
-Sec-Fetch-Mode: cors
-Sec-Fetch-Dest: empty
-Referer: https://ssrflab.dpdns.org/settings
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
+Origin: http://188.166.231.225:3000
+Referer: http://188.166.231.225:3000/
 Accept-Encoding: gzip, deflate, br
-Priority: u=1, i
+Connection: keep-alive
 
-{"profilePicture":"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn2nmWoa-66Yo5xylQwIiAxtvMrK2pB2l4CA&s"}
+{"profilePicture":"https://khoanhdep.com/wp-content/uploads/2025/09/avatar-anime.jpg"}
