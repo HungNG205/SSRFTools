@@ -12,11 +12,11 @@ def scanNet(request_info, params, ip, url):
             response = make_request(client, method, url, header, body, params, payload)
 
             if response.status_code == 200:
-                return f"[+] Network {ip} is open. (Status: {response.status_code})"
+                return f"[+] Network {ip} is open."
             else:
                 body_res = response.text
                 if "ECONNREFUSED" in body_res:
-                    return f"[+] Network {ip} is open. (Status: {response.status_code})"
+                    return f"[+] Network {ip} is open.)"
 
     except httpx.RequestError as exc:
         return
