@@ -16,26 +16,17 @@ def scanPort(request_info, params, network, port, url):
         return
 
 
-def read_port():
+def run(request_info, params, url):
     try:
+        network_target = input("Network to scan (e.g., 127.0.0.1): ").strip()
         with open("PayloadSSRF/Port.txt", "r") as f:
-            port_list = [int(line.strip()) for line in f.readlines()]
-        return port_list
+            ports = [line.strip() for line in f if line.strip().isdigit()]
+        print(f"\nScanning {len(ports)} ports on {network_target}...")
+        def worker(port):
+            return scanPort(request_info, params, network_target, port, url)
+
+        run_threads(ports, worker)
+        print("Port scan completed.")
     except FileNotFoundError:
         print("Error: PayloadSSRF/Port.txt not found.")
-        return []
 
-
-def run(request_info, params, url):
-    network_target = input("Network to scan (e.g., 127.0.0.1): ").strip()
-    ports = read_port()
-    if not ports:
-        return
-
-    print(f"\nScanning {len(ports)} ports on {network_target}...")
-
-    def worker(port):
-        return scanPort(request_info, params, network_target, port, url)
-
-    run_threads(ports, worker)
-    print("Port scan completed.")
