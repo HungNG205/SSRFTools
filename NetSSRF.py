@@ -1,37 +1,39 @@
-
 import argparse
-from Utils.parseRequest import parse_request
 import importlib
 
+from Utils.parseRequest import parse_request
+
+
 def print_banner():
-    banner_text = r"""
-    [96m        __   _
-         __(  )_( )_
-        (_   _    _)_
-       / /(_) (__)   [0m
-    [91m ____  ____  ____  _____ 
-    / ___|/ ___||  _ \|  ___|
-    \___ \\___ \| |_) | |_   
-     ___) |___) |  _ <|  _|  
-    |____/|____/|_| \_\_|    [0m
-    [93m[ Cloud SSRF v1.0 ][0m
+    banner_text = """
+    \x1b[96m _   _      _    ____ ____  ____  _____ \x1b[0m
+    \x1b[96m| \\ | | ___| |_ / ___/ ___||  _ \\|  ___|\x1b[0m
+    \x1b[96m|  \\| |/ _ \\ __|\\___ \\___ \\| |_) | |_   \x1b[0m
+    \x1b[96m| |\\  |  __/ |_  ___) |__) |  _ <|  _|  \x1b[0m
+    \x1b[96m|_| \\_|\\___|\\__||____/____/|_| \\_\\_|    \x1b[0m
+    \x1b[93m[ NetSSRF - Internal Recon CLI ]\x1b[0m
     """
     print(banner_text)
+
 
 def main():
     print_banner()
     try:
         parser = argparse.ArgumentParser(
-            description="Cloud SSRF",
-            epilog="Example usage: python CloudSSRF.py -f request_exam.txt -p url -s http -m scanNet",
+            description="NetSSRF - Internal network reconnaissance for SSRF testing",
+            epilog="Example usage: python NetSSRF.py -f request_exam.txt -p url -s http -m scanNet",
         )
         parser.add_argument("-f", "--file", required=True, help="Request file path")
         parser.add_argument("-p", "--params", required=True, help="Parameter to test SSRF")
-        parser.add_argument("-s", "--scheme", required=True, help="Protocol scheme (http or https)")     
-        parser.add_argument("-m", "--module", required=True, 
-                            choices=["scanNet", "scanPort", "exploitCloud"],
-                              help="option of scan/exploit")
-       
+        parser.add_argument("-s", "--scheme", required=True, choices=["http", "https"], help="Protocol scheme")
+        parser.add_argument(
+            "-m",
+            "--module",
+            required=True,
+            choices=["scanNet", "scanPort"],
+            help="Recon module: scanNet or scanPort",
+        )
+
         args = parser.parse_args()
         file_path = args.file
         scheme = args.scheme.lower()

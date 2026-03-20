@@ -3,27 +3,30 @@ import httpx
 from Utils.runThread import run_threads
 from Utils.makeRequest import make_request
 
-def scanNet(request_info, params, ip, url):
+def scanNet(client, request_info, params, ip, url):
     try:
-        method, _, header, body= request_info
+        method, _, header, body = request_info
         payload = f"http://{ip}"
 
-        with httpx.Client(http2=True, verify=False, timeout=10) as client:
-            response = make_request(client, method, url, header, body, params, payload)
+        response = make_request(client, method, url, header, body, params, payload)
 
-            if response.status_code == 200:
+        if response.status_code == 200:
+            return f"[+] Network {ip} is open."
+        else:
+            body_res = response.text
+            if "ECONNREFUSED" in body_res:
                 return f"[+] Network {ip} is open."
-            else:
-                body_res = response.text
-                if "ECONNREFUSED" in body_res:
-                    return f"[+] Network {ip} is open."
 
     except httpx.RequestError as exc:
         return
 
 
 def run(request_info, params, url):
-    target_subnet = input("Target IP/CIDR (e.g., 192.168.0.1/20): ").strip()
+    print("Suggested private ranges:")
+    print("- 10.0.0.0/8")
+    print("- 172.16.0.0/12")
+    print("- 192.168.0.0/16")
+    target_subnet = input("Target IP/CIDR (e.g., 192.168.1.0/24): ").strip()
     try:
         network = ipaddress.ip_network(target_subnet, strict=False)
         networks = list(network.hosts())[:40]
@@ -33,8 +36,10 @@ def run(request_info, params, url):
 
     print(f"\nScanning {len(networks)} hosts in {network}...")
 
-    def worker(ip):
-        return scanNet(request_info, params, ip, url)
+    with httpx.Client(http2=True, verify=False, timeout=10) as client:
+        def worker(ip):
+            return scanNet(client, request_info, params, ip, url)
 
-    run_threads(networks, worker)
+        run_threads(networks, worker)
+
     print("Network scan completed.")

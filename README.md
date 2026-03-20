@@ -1,6 +1,6 @@
-# CloudSSRF
+# NetSSRF
 
-Tool SSRF phục vụ chính cho việc khai thác SSRF trên Cloud
+NetSSRF là công cụ hỗ trợ kiểm thử và khai thác SSRF theo hướng tự động hóa thao tác gửi payload thủ công, tập trung vào trinh sát mạng nội bộ thông qua giao diện dòng lệnh (CLI) bằng Python.
 
 ## Cài đặt tools
 
@@ -13,7 +13,7 @@ pip install -r requirements.txt
 ## Chạy tools
 
 ```bash
-python CloudSSRF.py -f request_exam.txt -p profilePicture -s https -m scanNet
+python NetSSRF.py -f request_exam.txt -p profilePicture -s https -m scanNet
 ```
 
 Tham số:
@@ -21,7 +21,12 @@ Tham số:
 - `-f`: file raw request
 - `-p`: param cần test SSRF
 - `-s`: `http` hoặc `https`
-- `-m`: `scanNet` | `scanPort` | `exploitCloud`
+- `-m`: `scanNet` | `scanPort`
+
+## Chức năng chính
+
+- `scanNet`: Rà quét dải địa chỉ IP nội bộ thông qua SSRF
+- `scanPort`: Dò tìm các cổng dịch vụ mở trên một địa chỉ nội bộ
 
 ## Format request mẫu
 

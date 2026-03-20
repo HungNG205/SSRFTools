@@ -1,14 +1,14 @@
-PUT /api/user/update/avatar HTTP/1.1
-Host: 188.166.231.225:5000
-Content-Length: 86
+PUT /api/user/update/cover HTTP/1.1
+Host: 139.59.234.184:5000
+Content-Length: 110
 Accept-Language: en-US,en;q=0.9
 Accept: application/json, text/plain, */*
-auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTZlNmM0MzA0MTU5MGUxNmQ3N2RkNyIsImlhdCI6MTc3MjU0NjA1OCwiZXhwIjoxNzc1MTM4MDU4fQ.FVH-du7cdZ5x0NBVnYZw0_VxRwaJxb6Dqcs6szwVZ2w
+auth-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5YTg1MzU4Yzk5NTNlOGZmM2MwYWIzNSIsImlhdCI6MTc3MjYzOTUyOCwiZXhwIjoxNzc1MjMxNTI4fQ.JZrnlRpGtl5TKDLFP1xKwvB0EAimhmIz4w9-1pNpqOY
 Content-Type: application/json
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36
-Origin: http://188.166.231.225:3000
-Referer: http://188.166.231.225:3000/
+Origin: http://139.59.234.184:3000
+Referer: http://139.59.234.184:3000/
 Accept-Encoding: gzip, deflate, br
 Connection: keep-alive
 
-{"profilePicture":"https://khoanhdep.com/wp-content/uploads/2025/09/avatar-anime.jpg"}
+{"coverImage":"https://media-cdn-v2.laodong.vn/storage/newsportal/2023/8/26/1233821/Giai-Nhat--Dem-Sai-G.jpg"}

@@ -1,17 +1,22 @@
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def run_threads(items, worker, max_threads=40):
-    with ThreadPoolExecutor(max_workers=max_threads) as executor:
-        futures = [executor.submit(worker, item) for item in items]
+    executor = ThreadPoolExecutor(max_workers=max_threads)
+    futures = [executor.submit(worker, item) for item in items]
 
-        results_count = 0
+    results_count = 0
+    try:
         for future in as_completed(futures):
             try:
-                res = future.result()
-                if res:
-                    print(res)
+                if future.result():
                     results_count += 1
-            except Exception as e:
-                print(f"Thread error: {e}")
+            except Exception as err:
+                print(f"Thread error: {err}")
+    except KeyboardInterrupt:
+        print("\nScan interrupted by user (^C).")
+        for future in futures:
+            future.cancel()
+    finally:
+        executor.shutdown(wait=False, cancel_futures=True)
 
-        return results_count
+    return results_count
